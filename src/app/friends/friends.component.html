@@ -1,12 +1,70 @@
-<h3>Your Friends</h3>
-<div *ngFor="let friend of friends">
-    <p>
-        {{ friend.username }}
-    </p>
+<h1 class="text-base text-gray-900 px-2 py-2">Your Friends</h1>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="flex flex-col">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-5 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Name
+            </th>
+            <th scope="col" class="px-5 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Bullet
+            </th>
+            <th scope="col" class="px-5 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Blitz
+            </th>
+            <th scope="col" class="px-5 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Rapid
+            </th>
+            <th scope="col" class="px-5 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Last online
+            </th>
+          </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let friend of friends">
+            <td class="px-5 py-2 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <img class="h-10 w-10 rounded-full" src="{{friend.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}}" alt="">
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">
+                    {{ friend.username }}
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    {{ friend.name }}
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-2 whitespace-nowrap">
+                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold text-gray-800">
+                  {{ friend.stats?.chess_bullet?.last?.rating || '-'  }}
+                </span>
+            </td>
+            <td class="px-5 py-2 whitespace-nowrap">
+                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold text-gray-800">
+                  {{ friend.stats?.chess_blitz?.last?.rating || '-'  }}
+                </span>
+            </td>
+            <td class="px-5 py-2 whitespace-nowrap">
+                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold text-gray-800">
+                  {{ friend.stats?.chess_rapid?.last?.rating || '-'  }}
+                </span>
+            </td>
+            <td class="px-5 py-2 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  {{ friend.last_online * 1000  | date:'d. MMM, hh:mm'  }}
+                </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-
-<h1 class="my-8 text-center text-6xl font-bold">
-  <span class="text-green-600">TailwindCSS</span> and
-  <span class="text-red-600">Angular</span> is awesome!
-</h1>
-<p class="text-center text-3xl">Thanks for reading!</p>

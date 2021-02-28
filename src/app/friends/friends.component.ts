@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FriendI } from '../interface/friend';
 import { FriendsService } from '../service/friends/friends.service';
+import {ChessPlayer, ChessPlayerProfileApiResponse} from '../interface/player.interface';
 
 @Component({
   selector: 'app-friends',
@@ -10,19 +10,25 @@ import { FriendsService } from '../service/friends/friends.service';
 })
 export class FriendsComponent implements OnInit {
 
-  public friends: FriendI[] = [];
+  public friends: ChessPlayer[] = [];
 
   constructor(
     private friendsService: FriendsService
   ) { }
 
   ngOnInit(): void {
-    this.friendsService.fetchChessPlayerByName('cyfer777')
-      .subscribe(
-        (friend: FriendI) => {
-          this.friends.push({ ...friend });
-        }
-      );
+    this.friendsService.friends
+      .subscribe((friend: ChessPlayer) => {
+        console.log(friend);
+        this.friends.push({ ...friend });
+      });
+
+    this.friendsService.fetchChessPlayerByName('ProfGurke');
+    this.friendsService.fetchChessPlayerByName('Kong1436');
+    this.friendsService.fetchChessPlayerByName('strike_777');
+    this.friendsService.fetchChessPlayerByName('cyfer777');
+    this.friendsService.fetchChessPlayerByName('Mathino');
+    this.friendsService.fetchChessPlayerByName('bolli8');
   }
 
 }
