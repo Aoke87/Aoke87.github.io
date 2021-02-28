@@ -13,22 +13,18 @@ export class FriendsService {
     private http: HttpClient
   ) { }
 
-  getChessPlayer(name: string) {
-    this.fetchChessPlayerByName(name);
-  }
-
   public fetchChessPlayerByName(name: string): Observable<FriendI> {
     return this.http.get<FriendI>(`https://api.chess.com/pub/player/${name}`)
     .pipe(
-      tap(        
+      tap(
         data => console.log('tap', data),
         error => console.log('error: ', error)
       ),
       catchError(this.handleError)
-    )
+    );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {

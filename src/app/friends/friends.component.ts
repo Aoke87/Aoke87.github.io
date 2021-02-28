@@ -19,21 +19,10 @@ export class FriendsComponent implements OnInit {
   ngOnInit(): void {
     this.friendsService.fetchChessPlayerByName('cyfer777')
       .subscribe(
-        (friend: FriendI) => { 
-          // const headers = response.headers.keys().map(
-          //   key => `${key}: ${response.headers.get(key)}`
-          // );
-          // const friend: FriendI|null = response.body;
-
-          // console.log(headers);
-          // if ( !friend ) { return };
+        (friend: FriendI) => {
           this.friends.push({ ...friend });
         }
-      )
-  }
-
-  getChessPlayer(name: string) {
-
+      );
   }
 
 }
