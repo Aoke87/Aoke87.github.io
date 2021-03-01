@@ -26,9 +26,9 @@ export class FriendsService {
     this.friends.next({... friendWithStats });
   }
 
-  public async loadFriends(): Promise<void> {
+  public async loadFriends(fromApi = false): Promise<void> {
     const dbFriends = await this.fetchFriendsFromDb();
-    if (dbFriends.length > 0) {
+    if (dbFriends.length > 0 && !fromApi) {
       dbFriends.forEach(friend => this.addFriendToSubject(friend));
       return;
     }

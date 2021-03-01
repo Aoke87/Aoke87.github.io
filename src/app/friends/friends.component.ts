@@ -22,4 +22,8 @@ export class FriendsComponent implements OnInit {
       .subscribe((friend: ChessPlayer) => { this.friends.push({ ...friend }); });
   }
 
+  public reload(): void {
+    this.friendsService.loadFriends(true);
+  }
+
 }
