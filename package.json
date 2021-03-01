@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~11.2.3",
     "@angular/router": "~11.2.3",
     "angular-cli-ghpages": "^1.0.0-rc.1",
+    "ngx-indexed-db": "^6.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
