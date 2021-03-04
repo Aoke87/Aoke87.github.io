@@ -1,4 +1,4 @@
-import { ChessPlayerOpponent } from "./player.interface";
+import { ChessPlayerOpponent } from './player.interface';
 
 export interface ChessGamesApiResponseInterface {
     games: GameInterface[];
