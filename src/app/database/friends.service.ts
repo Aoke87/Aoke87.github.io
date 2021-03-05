@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ChessPlayer } from '../interface/player.interface';
-import { DATA_BASE_NAME_FRIENDS } from '../service/friends/friends.service';
-import {LastRefreshService} from './last-refresh.service';
+import { LastRefreshService } from './last-refresh.service';
+
+export const DATA_BASE_NAME_FRIENDS = 'friends';
 
 @Injectable({
   providedIn: 'root'

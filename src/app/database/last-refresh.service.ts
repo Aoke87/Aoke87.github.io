@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {DATA_BASE_NAME_UPDATE} from '../service/friends/friends.service';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import * as moment from 'moment';
+
+export const DATA_BASE_NAME_UPDATE = 'updates';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class LastRefreshService {
   {
     const lastUpdate = await this.dbService.getByKey(DATA_BASE_NAME_UPDATE, 1).toPromise();
     if (!lastUpdate) { return null; }
+    console.log('Last Database update has been', moment(lastUpdate.date.toString()).fromNow());
     return lastUpdate.date;
   }
 

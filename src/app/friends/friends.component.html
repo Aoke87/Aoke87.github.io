@@ -1,11 +1,18 @@
 <h1 class="text-base px-2 py-2 text-2xl text-white text-center">Your Friends</h1>
 
 <div class="grid grid-cols-2 gap-4 -mx-1">
-  <div *ngFor="let friend of friends" class="p-2 shadow-lg text-center bg-gray-50 rounded">
-    <img class="h-8 w-8 rounded-full mx-auto" src="{{friend.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}}" alt="">
-    <h2 class="text-center font-medium text-gray-900">{{ friend.username }}</h2>
-    <h3 class="text-center text-xs font-medium text-gray-500 h-4">{{ friend.name }}</h3>
-    <div class="grid grid-cols-3 gap-1 gap-y-2 my-4">
+  <div *ngFor="let friend of friends" class="px-2 pt-6 pb-2 shadow-lg text-center bg-gray-50 rounded relative">
+    <div class="absolute top-0 right-0 text-xs bg-blue-500 shadow text-white p-1 py-0.5 rounded rounded-br-none rounded-tl-none">
+      <p class="inline-flex"> {{ friend.last_online * 1000  | date:'d. MMM, HH:mm'  }}</p>
+    </div>
+    <div class="flex items-start overflow-clip overflow-ellipsis">
+      <img class="h-8 w-8 mr-1 rounded-full" src="{{friend.avatar || 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg'}}" alt="">
+      <div class="flex-col overflow-clip overflow-ellipsis justify-start align-middle leading-none">
+        <h2 class="text-left font-medium text-gray-900">{{ friend.username }}</h2>
+        <h3 class="text-left overflow-clip overflow-ellipsis text-xs font-medium overflow-ellipsis text-gray-500 h-4 whitespace-nowrap" style="text-overflow: '...'">{{ friend.name }}</h3>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-1 gap-y-2 my-2">
       <div class="flex flex-col">
         <img class="h-6 inline-block" src="./assets/bullet.svg" alt="">
         <h3 class="text-xs text-gray-600">Bullet</h3>
@@ -22,9 +29,10 @@
         <span class="text-base text-blue-900">{{ friend.stats?.chess_rapid?.last?.rating || '-'  }}</span>
       </div>
     </div>
-    <div class="inline">
-      <p class="inline-flex text-xs">last online: </p>
-      <p class="inline-flex text-xs ml-2"> {{ friend.last_online * 1000  | date:'d. MMM, HH:mm'  }}</p>
+
+    <div class="inline text-left text-xs leading-3">
+      <p class="inline text-left">matches today: </p>
+      <p class="inline-flex ml-2"> {{ friend?.dailyMatches?.length || '0' }}</p>
     </div>
   </div>
 </div>

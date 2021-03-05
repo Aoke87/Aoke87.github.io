@@ -1,4 +1,5 @@
 import {PlayerStatsApiResponseInterface} from './stats.interface';
+import {GameInterface} from './chessGames.interface';
 
 export interface ChessPlayerProfileApiResponse {
     avatar: string;
@@ -26,4 +27,5 @@ export interface ChessPlayerOpponent {
 
 export interface ChessPlayer extends ChessPlayerProfileApiResponse {
   stats: PlayerStatsApiResponseInterface;
+  dailyMatches?: GameInterface[];
 }

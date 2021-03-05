@@ -8,7 +8,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FriendsComponent } from './friends/friends.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
-import { DATA_BASE_NAME_UPDATE, DATA_BASE_NAME_FRIENDS } from './service/friends/friends.service';
+import { DATA_BASE_NAME_UPDATE } from './database/last-refresh.service';
+import { DATA_BASE_NAME_FRIENDS } from './database/friends.service';
 
 const dbConfig: DBConfig  = {
   name: 'MyDb',
