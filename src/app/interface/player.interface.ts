@@ -28,4 +28,5 @@ export interface ChessPlayerOpponent {
 export interface ChessPlayer extends ChessPlayerProfileApiResponse {
   stats: PlayerStatsApiResponseInterface;
   dailyMatches?: GameInterface[];
+  eloImprovement: any,
 }

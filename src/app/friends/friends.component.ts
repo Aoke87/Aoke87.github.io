@@ -1,14 +1,14 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { ChessPlayer, ChessPlayerProfileApiResponse} from '../interface/player.interface';
-import { MatchesService as MatchesDbService } from '../api/matches.service';
-import {Observable, Subject} from 'rxjs';
+import { MatchesService as MatchesApiService } from '../api/matches.service';
+import { Subject } from 'rxjs';
 import { NgxIndexedDBService} from 'ngx-indexed-db';
 import { FriendsService as FriendsDbService} from '../database/friends.service';
 import { LastRefreshService} from '../database/last-refresh.service';
 import { retry} from 'rxjs/operators';
 import { PlayerStatsApiResponseInterface} from '../interface/stats.interface';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-friends',
@@ -27,24 +27,34 @@ export class FriendsComponent implements OnInit {
 
   public isLoading = false;
 
+  public refreshTimerMinutes = 10;
+
   constructor(
     private http: HttpClient,
     private dbService: NgxIndexedDBService,
     private friendsDbService: FriendsDbService,
     private lastRefreshService: LastRefreshService,
-    private matchesDbService: MatchesDbService
+    private matchesApiService: MatchesApiService
   ) { }
 
   ngOnInit(): void {
     this.friendsSubject.subscribe((friend: ChessPlayer) => {
-      this.matchesDbService.getDailyMatches(friend.username).then(
-        matches => { this.friends.push({ ...friend, dailyMatches: matches }); }
+      this.matchesApiService.getDailyMatches(friend.username).then(
+        matches => {
+          friend = {
+            ...friend,
+            dailyMatches: matches,
+            eloImprovement: this.matchesApiService.getEloImprovement(matches, friend.username)
+          };
+          this.friends.push(friend);
+          console.log(friend);
+        }
       );
     });
     this.loadFriends();
   }
 
-  /**
+  /**0
    * Load either:
    * initially preset of friends from api -> save to db
    * all friends from database
@@ -52,9 +62,9 @@ export class FriendsComponent implements OnInit {
   public async loadFriends(fromApi = false): Promise<void> {
     const lastRefresh = await this.lastRefreshService.getLastUpdate();
 
-    if (!lastRefresh || fromApi || moment().diff(lastRefresh, 'minutes') > 20) {
+    if (!lastRefresh || fromApi || dayjs().subtract(this.refreshTimerMinutes, 'minutes').isAfter(dayjs(lastRefresh))) {
       // Initially load players from Api
-      console.log('🛑 No Date found, requesting from chess.com api');
+      console.log('🛑 Date old -> requesting from chess.com api');
       return await this.loadPresetFriendsFromApi();
     } else {
       // Load Players from Database

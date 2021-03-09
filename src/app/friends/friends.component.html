@@ -13,20 +13,44 @@
       </div>
     </div>
     <div class="grid grid-cols-3 gap-1 gap-y-2 my-2">
-      <div class="flex flex-col">
+      <div class="text-xs text-gray-600">
         <img class="h-6 inline-block" src="./assets/bullet.svg" alt="">
         <h3 class="text-xs text-gray-600">Bullet</h3>
-        <span class="text-base text-blue-900">{{ friend.stats?.chess_bullet?.last?.rating || '-'  }}</span>
+        <span class="text-base text-blue-900 block">{{ friend.stats?.chess_bullet?.last?.rating || '-'  }}</span>
+        <span
+          *ngIf="friend.eloImprovement.bullet"
+          [class.text-green-700]="friend.eloImprovement.bullet > 0"
+          [class.text-red-700]="friend.eloImprovement.bullet < 0"
+          class="text-xs text-gray-600 block"
+        >
+          {{ friend.eloImprovement.bullet > 0 ? '+' + friend.eloImprovement.bullet : friend.eloImprovement.bullet  }}
+        </span>
       </div>
       <div class="text-xs text-gray-600">
         <img class="h-6 inline-block" src="./assets/blitz.svg" alt="">
         <h3 class="text-xs text-gray-600">Blitz</h3>
-        <span class="text-base text-blue-900">{{ friend.stats?.chess_blitz?.last?.rating || '-'  }}</span>
+        <span class="text-base text-blue-900 block">{{ friend.stats?.chess_blitz?.last?.rating || '-'  }}</span>
+        <span
+          *ngIf="friend.eloImprovement.blitz"
+          [class.text-green-700]="friend.eloImprovement.blitz > 0"
+          [class.text-red-700]="friend.eloImprovement.blitz < 0"
+          class="text-xs text-gray-600 block"
+        >
+          {{ friend.eloImprovement.blitz > 0 ? '+' + friend.eloImprovement.blitz : friend.eloImprovement.blitz  }}
+        </span>
       </div>
       <div class="text-xs text-gray-600">
         <img class="h-6 inline-block" src="./assets/rapid.svg" alt="">
         <h3 class="text-xs text-gray-600">Rapid</h3>
-        <span class="text-base text-blue-900">{{ friend.stats?.chess_rapid?.last?.rating || '-'  }}</span>
+        <span class="text-base text-blue-900 block">{{ friend.stats?.chess_rapid?.last?.rating || '-'  }}</span>
+        <span
+          *ngIf="friend.eloImprovement.rapid"
+          class="text-xs text-gray-600 block"
+          [class.text-green-700]="friend.eloImprovement.rapid > 0"
+          [class.text-red-700]="friend.eloImprovement.rapid < 0"
+        >
+          {{ friend.eloImprovement.rapid > 0 ? '+' + friend.eloImprovement.rapid : friend.eloImprovement.rapid  }}
+        </span>
       </div>
     </div>
 
